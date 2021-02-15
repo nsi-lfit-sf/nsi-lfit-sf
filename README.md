@@ -62,3 +62,14 @@ Il faut d'abord instancier un graphe en utilisant NetworkX. Ensuite pour le visu
 
 *   https://networkx.org/documentation/stable/tutorial.html (site documentaire : utlisation de Networkx)
 
+
+'''
+pip install osmnx
+
+import osmnx as ox
+import networkx as nx
+
+
+G = ox.graph_from_point((35.02514, 135.76239), network_type='drive', dist=1000)
+ox.plot_graph(ox.project_graph(G))
+'''
