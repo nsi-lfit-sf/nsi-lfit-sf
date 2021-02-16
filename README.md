@@ -2,17 +2,29 @@
 
 ### Présentation
 
-OSMnx est un package utilisé en Python permettant de récupérer, de modéiser, d'analyser et visualiser les données des réseaux routiers tout en prenant l'information de la carte à partir d'OpenStreetMap. Il a été développé par Geoff Boeing, directeur du laboratoire des données urbaines (Urban Data Lab) à l'université de Californie du Sud. 
-
-※ Réseau routier : ensemble de voies de  circulation terrestre, transport des véhivules routiers, surtout les véhicules motorisés (voiture, motos...)
-
-※Package : ensemble de fonction dont sont regroupés les modules 
+OSMnx est une bibliothèque utilisée en Python permettant de récupérer, de modéliser, d'analyser et de visualiser les données des réseaux de rue tout en prenant l'information de la carte à partir d'OpenStreetMap. Il a été développé par Geoff Boeing, directeur du laboratoire des données urbaines (Urban Data Lab) à l'université de Californie du Sud. 
 
 >  ### OpenStreetMap: 
 L'OpenStreetMap est un projet collaboratif de cartographie en ligne, mis en route par Steve Coast à l'University College de Londres en 2004, qui vise à constituer une base de données géographiques libre du monde, en utilisant le système GPS et d'autres données libres.
 
 ### Fonctionnement
 
+Le code "type" pour la création de la carte de rue géographique avec OSMNx est le suivant :
+
+```
+# On installe la bibliothèque OSMNx avec le pip
+pip install osmnx
+
+```
+
+```
+# Puis on importe OSMNx à partir de la bibliothèque installée
+import osmnx as ox   
+
+
+G = ox.graph_from_point(center_point=(35.02514, 135.76239), network_type='drive', dist=1000)
+ox.plot_graph(ox.project_graph(G))
+```
 Une fois que le réseau routier est récupéré, on peut le construire ensuite dans des graphiques NetworkX : OSMNx est également capable de vérifier si les noeuds dans la topologie du réseau ont bien leur intersection et des impasses, les corriger automatiquement en cas d'erreur. Il peut aussi calculer les chemins les plus courts d'un noeud à un autre. 
 
 
