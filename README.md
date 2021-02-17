@@ -21,11 +21,33 @@ pip install osmnx
 # Puis on importe OSMNx à partir de la bibliothèque installée
 import osmnx as ox   
 
+# On définit ici G comme le nom de la cartographie créee ; 
+# Le 'center_point' permet ici de déterminer la place où on veut afficher les réseaux de rue, cela peut être fait à partir des coordonnées, le nom d'une ville, de pays... plus l'échelle deviendra grande, plus le traitement devient évidememnt lourd. 
+# 'network_type' permet de régler le type de réseau qu'on veut "cartographier", ici on choisit le réseau de rue de type routier. 
+# Le résultat nous affichera donc le réseau routier autour de Kyoto Gyoen, au Japon. 
+# Enfin le 'dist' permet de régler la limite de distance que l'on désire afficher à partir du point de centre depuis les coordonnées, ici on règle de 1000 m de distance. 
 
 G = ox.graph_from_point(center_point=(35.02514, 135.76239), network_type='drive', dist=1000)
 ox.plot_graph(ox.project_graph(G))
 ```
-Une fois que le réseau routier est récupéré, on peut le construire ensuite dans des graphiques NetworkX : OSMNx est également capable de vérifier si les noeuds dans la topologie du réseau ont bien leur intersection et des impasses, les corriger automatiquement en cas d'erreur. Il peut aussi calculer les chemins les plus courts d'un noeud à un autre. 
+Une fois que le réseau routier est récupéré, on peut le construire ensuite dans des graphiques NetworkX.
+
+OSMNx est également capable de vérifier si les noeuds dans la topologie du réseau ont bien leur intersection et des impasses, les corriger automatiquement en cas d'erreur. 
+
+Il peut aussi calculer les chemins les plus courts d'un noeud à un autre:
+
+```
+import osmnx as ox
+import networkx as nx
+
+G = ox.graph_from_point(center_point=(35.02514, 135.76239), network_type='drive', dist=1000)
+
+orig = ox.get_nearest_node(G, (35.0273781558413,135.75774513168687 ))
+dest = ox.get_nearest_node(G, (35.02336407861095,135.7675511280653))
+route = nx.shortest_path(G, orig, dest)
+fig, ax = ox.plot_graph_route(G, route, route_linewidth=6, node_size=0, bgcolor='k')
+```
+
 
 
 ---
